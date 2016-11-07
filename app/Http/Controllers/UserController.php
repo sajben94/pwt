@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\User;
 
 /**
@@ -11,27 +12,46 @@ class UserController extends Controller
 {
 
   function showAction($id){
+    // $user = User::find($id);
+    // echo $user->mail."<br>";
+    // echo $user->meno . " " . $user->priezvisko."<br>";
+    // echo $user->vek."<br>";
+    // echo $user->update_at;
+
     $user = User::find($id);
-    echo $user->mail."<br>";
-    echo $user->meno . " " . $user->priezvisko."<br>";
-    echo $user->vek."<br>";
-    echo $user->update_at;
+    return view("update", ['user' => $user]);
   }
 
-  function insertAction(){
-    // $user = new User();
-    // $user->meno = "Daky";
-    // $user->priezvisko = str_random(6);
-    // $user->mail = $user->meno. "." . $user->priezvisko . "@gmail.com";
-    //  $user->vek = mt_rand(1,80);
-    // $user->save();
+  public function insertAction(Request $request){
+    $firstname = $request->input('firstname');
+    $lastname = $request->input('lastname');
+    $mail = $request->input('mail');
+    $age = $request->input('age');
 
-    User::create(['meno' => 'Peter', 'mail' => 'sajben@sajben.sk' ]);
+    $user = new User();
+    $user->meno = $firstname;
+    $user->priezvisko = $lastname;
+    $user->mail = $mail;
+    $user->vek = $age;
+    $user->save();
+
+    return response()->view('adduser');
+
+    //User::create(['meno' => 'Peter', 'mail' => 'sajben@sajben.sk' ]);
   }
 
-  function updateAction($id){
-    $user = User::find($id);
-    $user-> update(["vek" => mt_rand(1,80)]);
+  public function getUserForm(){
+    return view('adduser');
+  }
+
+  function updateAction($id, Request $request){
+    $user = User::where("id", "=", $id)->first();
+    $user->update(["vek" => $request->input('age'),
+            "meno" => $request->input('firstname'),
+            "priezvisko" => $request->input('lastname'),
+            "mail" => $request->input('email')]);
+
+    return redirect()->action('UserController@showAllAction');
   }
 
   function deleteAction($id){
@@ -40,11 +60,8 @@ class UserController extends Controller
   }
 
   function showAllAction(){
-    // $users = User:all();
-    // foreach ($users as $user) {
-    //   echo $user->mail."<br>";
-    //   echo $user->meno."<br>";
-    //   echo $user->update_at."<br><br>";
-    // }
+    $users = User::all();
+    // dd($users);
+    return view('user',['users' => $users]);
   }
 }

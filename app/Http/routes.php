@@ -19,16 +19,19 @@ Route::get('test', function () {
   echo "string";
 });
 
-
 Route::get('show/{id}',[
   'as' => 'show', 'uses' => 'UserController@showAction'
 ]);
 
-Route::get('insert',[
+Route::post('insert',[
   'as' => 'insert', 'uses' => 'UserController@insertAction'
 ]);
 
-Route::get('update/{id}',[
+Route::get('add',[
+  'as' => 'add', 'uses' => 'UserController@getUserForm'
+]);
+
+Route::post('update/{id}',[
   'as' => 'update', 'uses' => 'UserController@updateAction'
 ]);
 
