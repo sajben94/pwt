@@ -12,12 +12,6 @@ class UserController extends Controller
 {
 
   function showAction($id){
-    // $user = User::find($id);
-    // echo $user->mail."<br>";
-    // echo $user->meno . " " . $user->priezvisko."<br>";
-    // echo $user->vek."<br>";
-    // echo $user->update_at;
-
     $user = User::find($id);
     return view("update", ['user' => $user]);
   }
@@ -25,7 +19,7 @@ class UserController extends Controller
   public function insertAction(Request $request){
     $firstname = $request->input('firstname');
     $lastname = $request->input('lastname');
-    $mail = $request->input('mail');
+    $mail = $request->input('email');
     $age = $request->input('age');
 
     $user = new User();
@@ -35,9 +29,7 @@ class UserController extends Controller
     $user->vek = $age;
     $user->save();
 
-    return response()->view('adduser');
-
-    //User::create(['meno' => 'Peter', 'mail' => 'sajben@sajben.sk' ]);
+    return redirect()->action('UserController@showAllAction');
   }
 
   public function getUserForm(){
@@ -57,11 +49,12 @@ class UserController extends Controller
   function deleteAction($id){
     $user = User::find($id);
     $user-> delete();
+
+    return redirect()->action('UserController@showAllAction');
   }
 
   function showAllAction(){
     $users = User::all();
-    // dd($users);
     return view('user',['users' => $users]);
   }
 }
