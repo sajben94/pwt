@@ -1,6 +1,8 @@
 <?php
 
 ?>
+<a href="{{ url('/showall') }}">showall</a>
+<a href="{{ url('/add') }}">add</a>
 
 <form action="{{ action('UserController@insertAction') }}" method="post">
   Meno:<br>

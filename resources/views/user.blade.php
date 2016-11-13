@@ -1,6 +1,9 @@
 <?php
 
 ?>
+<a href="{{ url('/showall') }}">showall</a>
+<a href="{{ url('/add') }}">add</a>
+
 <table>
   @foreach($users as $user)
     <tr>

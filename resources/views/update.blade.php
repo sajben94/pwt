@@ -1,6 +1,11 @@
 <?php
 
 ?>
+<a href="{{ url('/showall') }}">showall</a>
+<a href="{{ url('/add') }}">add</a>
+
+
+
 <form action=" {{ action('UserController@updateAction', ['id' => $user->id] ) }} " method="post">
   Meno:<br>
   <input type="text" name="firstname" value="{{ $user->meno }}">
