@@ -1,6 +1,4 @@
-<?php
 
-?>
 <a href="{{ url('/showall') }}">showall</a>
 <a href="{{ url('/add') }}">add</a>
 

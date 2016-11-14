@@ -3,9 +3,9 @@
 @section('title', 'Page Title')
 
 @section('sidebar')
-    @parent
-
-    <p>This is appended to the master sidebar.</p>
+  @parent
+  <a href="{{ url('/showall') }}">showall</a>
+  <a href="{{ url('/add') }}">add</a>
 @endsection
 
 @section('content')
