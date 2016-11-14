@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('test', function () {
-  echo "string";
-});
-
+Route::get('test',[
+  'as' => 'test', 'uses' => 'UserController@test'
+]);
 Route::get('show/{id}',[
   'as' => 'show', 'uses' => 'UserController@showAction'
 ]);
